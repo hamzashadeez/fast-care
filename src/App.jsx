@@ -4,6 +4,10 @@ import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Members from "./pages/Members";
+import Chats from "./pages/Chats";
+import Bookings from "./pages/Bookings";
+import ProtectedRoutes from "./components/ProtextedRoute";
 
 function App() {
 
@@ -14,7 +18,10 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>}></Route>
+          <Route path="/members" element={<ProtectedRoutes><Members /></ProtectedRoutes>}></Route>
+          <Route path="/chats" element={<ProtectedRoutes><Chats /></ProtectedRoutes>}></Route>
+          <Route path="/bookings" element={<ProtectedRoutes><Bookings /></ProtectedRoutes>}></Route>
         </Routes>
       </BrowserRouter>
     </>
@@ -25,24 +32,3 @@ export default App;
 
 
 
-// useEffect(() => {
-//   setLoading(true);
-//   const unsubscribeAuthStateChanged = onAuthStateChanged(
-//     auth,
-//     async (authenticatedUser) => {
-//       if (authenticatedUser) {
-//         const unsub = onSnapshot(
-//           doc(db, "users", authenticatedUser?.email),
-//           (doc) => {
-//             console.log(doc.data());
-//             setUserState(doc.data());
-//           }
-//         );
-//         setLoading(false);
-//       }
-//       setLoading(false);
-//       setUser(authenticatedUser);
-//     }
-//   );
-//   return unsubscribeAuthStateChanged;
-// }, []);
