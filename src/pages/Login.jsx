@@ -11,7 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  
   const navigate = useNavigate();
   const onSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ const Login = () => {
     <div className="flex flex-col md:flex-row h-screen ">
       {loading && <LoadingComponent />}
       <div className="w-full md:block md:w-1/2 h-screen p-8 md:p-24">
-        <h1 className="text-green-600 md:mt-12 md:mt-0 font-semibold text-3xl md:text-4xl">
+        <h1 className="text-brand md:mt-12 md:mt-0 font-semibold text-3xl md:text-4xl">
           Welcome Back
         </h1>
         <p className="text-xl">Enter your Credentials to access your account</p>
@@ -68,7 +68,7 @@ const Login = () => {
           <p className="text-center">
             Don't have an account?
             <Link to="/register">
-              <span className="text-green-600 cursor-pointer px-2 font-semibold">
+              <span className="text-brand cursor-pointer px-2 font-semibold">
                 Register
               </span>
             </Link>
