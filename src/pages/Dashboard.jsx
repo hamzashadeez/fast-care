@@ -2,25 +2,35 @@ import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { MdAccountCircle } from "react-icons/md";
 import { FaBell } from "react-icons/fa";
+import DashboardHeader from "../components/DashboardHeader";
+import userData from "../lib/userData";
+import { useRecoilState } from "recoil";
 
 const Dashboard = () => {
+  const [user, setUser] = useRecoilState(userData);
+
   return (
     <div className="">
-      <header className="bg-white shadow-sm w-full h-[60px] flex items-center justify-between px-5 md:px-12">
-        <h1 className="text-bold text-xl text-black">Dashboard</h1>
-        <div className="flex gap-5">
-          <Link to={"/"}>
-            <div className="h-10 w-10 bg-red-500/10 flex items-center justify-center rounded-full">
-              <FaBell size={25} color="red" />
-            </div>
-          </Link>
-          <Link to={"/profile"}>
-            <div className="h-10 w-10 bg-brand/10 flex items-center justify-center rounded-full">
-              <MdAccountCircle size={30} color="seagreen" />
-            </div>
-          </Link>
-        </div>
-      </header>
+      <DashboardHeader label="Dashboard" />
+      <div className="p-6 md:p-8">
+        <h2 className="font-semibold text-2xl">Hello <span className="text-brand">{user?.fullName}</span></h2>
+
+        {/* section */}
+        <section className="grid grid-cols-1 mt-5  md:grid-cols-3 gap-3 md:gap-5 ">
+          <div className="bg-white p-6 rounded-md shadow-md w-full ">
+            
+          </div>
+          <div className="bg-white p-6 rounded-md shadow-md w-full ">
+            
+          </div>
+          <div className="bg-white p-6 rounded-md shadow-md w-full ">
+            
+          </div>
+          <div className="bg-white p-6 rounded-md shadow-md w-full ">
+            
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

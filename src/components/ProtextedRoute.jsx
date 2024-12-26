@@ -44,7 +44,7 @@ function ProtectedRoutes({ children }) {
 //   if (loading) return <LoadingComponent />;
 
   return (
-    <div className="bg-brand/10 min-h-screen flex flex-row">
+    <div className="bg-brand/5 min-h-screen flex flex-row">
       <div className="w-1/6 p-4 shadow-sm bg-white">
         <Sidebar />
       </div>
