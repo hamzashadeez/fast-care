@@ -8,6 +8,8 @@ import Members from "./pages/Members";
 import Chats from "./pages/Chats";
 import Bookings from "./pages/Bookings";
 import ProtectedRoutes from "./components/ProtextedRoute";
+import ChatWrapper from "./components/ChatWrapper";
+import ProfileScreen from "./pages/Profile";
 
 function App() {
 
@@ -19,8 +21,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>}></Route>
+          <Route path="/profile" element={<ProtectedRoutes><ProfileScreen /></ProtectedRoutes>}></Route>
           <Route path="/members" element={<ProtectedRoutes><Members /></ProtectedRoutes>}></Route>
-          <Route path="/chats" element={<ProtectedRoutes><Chats /></ProtectedRoutes>}></Route>
+          <Route path="/chats" element={<ChatWrapper><Chats /></ChatWrapper>}></Route>
           <Route path="/bookings" element={<ProtectedRoutes><Bookings /></ProtectedRoutes>}></Route>
         </Routes>
       </BrowserRouter>

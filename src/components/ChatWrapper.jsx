@@ -5,15 +5,12 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import Sidebar from "./Sidebar";
-import userData from "../lib/userData";
-import { useRecoilState } from "recoil";
+import ChatSidebar from "./ChatSidebar";
 
-function ProtectedRoutes({ children }) {
+function ChatWrapper({ children }) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const [_, setUserData] = useRecoilState(userData);
-
 
   useEffect(() => {
     setLoading(true);
@@ -21,14 +18,14 @@ function ProtectedRoutes({ children }) {
       auth,
       async (authenticatedUser) => {
         if (authenticatedUser) {
-          console.log(authenticatedUser?.email)
+          console.log(authenticatedUser);
           const unsub = onSnapshot(
             doc(db, "users", authenticatedUser?.email),
             (doc) => {
-              setLoading(false);
+                setLoading(false);
               console.log(doc.data());
               setUser(doc.data());
-              setUserData(doc.data());
+              //   setUserState(doc.data());
             }
           );
           return;
@@ -46,11 +43,11 @@ function ProtectedRoutes({ children }) {
   return (
     <div className="bg-brand/10 min-h-screen flex flex-row">
       <div className="w-1/6 p-4 shadow-sm bg-white">
-        <Sidebar />
+        <ChatSidebar />
       </div>
       <div className="w-5/6">{children}</div>
     </div>
   );
 }
 
-export default ProtectedRoutes;
+export default ChatWrapper;

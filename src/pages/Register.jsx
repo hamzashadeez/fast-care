@@ -6,6 +6,8 @@ import LoadingComponent from "../components/LoadingComponent";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { useRecoilState } from "recoil";
+import userData from "../lib/userData";
 
 const Register = () => {
   const [fullName, setFullName] = useState("");
@@ -14,6 +16,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [type, setType] = useState(false);
   const navigate = useNavigate();
+  const [user, setUser] = useRecoilState(userData);
 
 
   const onSubmit = (e) => {
@@ -21,13 +24,15 @@ const Register = () => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then(async () => {
-        const userType = type ? "doctor" : "parent";
+        const userType = type ? "doctor" : "patient";
         await setDoc(doc(db, "users", email), {
           userType,
           fullName,
           email,
           password,
         });
+
+        setUser({ userType, fullName, email, password });
 
         console.log("Done");
         setLoading(false);
