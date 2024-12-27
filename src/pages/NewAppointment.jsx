@@ -1,16 +1,33 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import userData from "../lib/userData";
 import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  Timestamp,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import Input from "../components/Input";
 
-const Doctor = ({data, selected, setSelected}) => {
- 
- console.log(data);
+import Button from "../components/Button";
+import LoadingComponent from "../components/LoadingComponent";
+
+const Doctor = ({ data, selected, setSelected }) => {
+  console.log(data);
   return (
-    <div  className={`w-[200px] h-[250px] border-2 ${selected?.fullName === data?.fullName ? "bg-brand/5 border border-brand" : "bg-white border-white"}  shadow-sm p-3 flex flex-col justify-between`}>
+    <div
+      onClick={() => setSelected(data)}
+      className={`w-[200px] h-[250px] border-2 ${
+        selected?.fullName === data?.fullName
+          ? "bg-brand/5 border border-brand"
+          : "bg-white border-white"
+      }  shadow-sm p-3 flex flex-col justify-between`}
+    >
       <div>
         <img
           src={data?.profilePic ? data?.profilePic : "/man.jpg"}
@@ -20,57 +37,93 @@ const Doctor = ({data, selected, setSelected}) => {
         <p className="font-semibold text-sm text-center mt-4 truncate mx-2">
           Dr {data?.fullName}
         </p>
-        <p className="font-semibold text-sm text-center mt-2 capitalize italic text-green-400" >{data?.userType}</p>
+        <p className="font-semibold text-sm text-center mt-2 capitalize italic text-green-400">
+          {data?.userType}
+        </p>
         <div className="w-full h-[2px] bg-brand/10 mt-2"></div>
       </div>
-      {/* blink available using tailwind css */}
+      <p className="font-semibold text-lg mt-2">₦5k/session</p>
       <div className="font-semibold border bg-brand/20 text-brand py-1 text-sm text-center mt-2">
         Available
       </div>
-      <button
+
+      {/* <button
         type="button"
-        onClick={()=>setSelected(data)}
         className="font-semibold border border-brand/20 rounded-full text-brand py-2 text-sm text-center mt-2"
       >
         Select
-      </button>
+      </button> */}
     </div>
   );
 };
 const NewAppointment = () => {
-    const [user, setUser] = useRecoilState(userData);
+  const [user, setUser] = useRecoilState(userData);
 
-    const [selected, setSelected] = useState(null);
-  
-    const [doctors, setDoctors] = useState([]);
-  
-    const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState(null);
 
-    const [name, setName] = useState("");
+  const [doctors, setDoctors] = useState([]);
 
-    const [desc, setDesc] = useState("");
-  
-    const getDoctors = async () => {
-      console.log("hello");
-      const dr = [];
-      const q = query(collection(db, "users"), where("userType", "==", "doctor"));
-  
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        dr.push(doc.data());
-        setDoctors(dr);
-      });
+  const [loading, setLoading] = useState(false);
+
+  const [name, setName] = useState("");
+
+  const [desc, setDesc] = useState("");
+
+  const navigate = useNavigate();
+
+  const getDoctors = async () => {
+    console.log("hello");
+    const dr = [];
+    const q = query(collection(db, "users"), where("userType", "==", "doctor"));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      dr.push(doc.data());
+      setDoctors(dr);
+    });
+  };
+
+  useEffect(() => {
+    getDoctors();
+  }, []);
+
+  const submitAppointment = async (e) => {
+    if(loading) return;
+    setLoading(true)
+    e.preventDefault();
+    const data = {
+      doctor: selected,
+      sessionName: name,
+      sessionDesc: desc,
+      patient: user,
+      id: user?.email,
+      doctorId: selected.email,
+      status: "pending",
+      date: new Date().toUTCString(),
+      timestamp: Timestamp.now(),
     };
-  
-    useEffect(() => {
-      getDoctors();
-    }, []);
+    const id = new Date().getTime();
+    
+    const dataRef = doc(db, "bookings", String(id));
+    setDoc(dataRef, data, { merge: true }).then(() => {
+        alert("Successpully made an appointment");
+        setLoading(false);
+        navigate("/bookings");
+    }).catch((error) => {
+        setLoading(false);
+        alert(error.message);
+    })
+  };
   return (
     <div className="w-full min-h-screen bg-brand/5">
-      <form className="w-full md:w-1/2 mx-auto pt-12">
+      {loading && <LoadingComponent />}
+      <form
+        onSubmit={(e) => submitAppointment(e)}
+        className="w-full md:w-1/2 mx-auto pt-12"
+      >
         <Link
           className="text-brand bg-brand/10 px-4 py-2 rounded-md "
-          to={"/dashboard"}
+          to={"/bookings"}
         >
           Go Back
         </Link>
@@ -83,22 +136,56 @@ const NewAppointment = () => {
             Select Doctor
           </p>
           <main className="flex items-center gap-4 flex-wrap">
-            {doctors.map((doc, index) => <Doctor data={doc} key={index} selected={selected} setSelected={setSelected} />)}
-            
+            {doctors.map((doc, index) => (
+              <Doctor
+                data={doc}
+                key={index}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            ))}
           </main>
 
           {/* session details */}
-            <div className="flex flex-col mt-8 gap-4">
-                <div>
-                    <label htmlFor="name" className="text-md text-gray-500 font-semibold mb-1">Enter Session Label/Name</label>
-                    <Input  id="name" type="text" placeholder="session name" value={name} onChange={(e) => setName(e.target.value)} required />
-                </div>
-                <div>
-                    <label htmlFor="desc" className="text-md text-gray-500 font-semibold mb-1">Enter Description</label>
-                    <Input  id="desc" type="text" placeholder="description (optional)" value={desc} onChange={(e) => setDesc(e.target.value)} required />
-                </div>
+          <div className="flex flex-col mt-8 gap-4">
+            <div>
+              <label
+                htmlFor="name"
+                className="text-md text-gray-500 font-semibold mb-1"
+              >
+                Enter Session Label/Name
+              </label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="session name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
             </div>
-            {/* end session details */}
+            <div>
+              <label
+                htmlFor="desc"
+                className="text-md text-gray-500 font-semibold mb-1"
+              >
+                Enter Description
+              </label>
+              <Input
+                id="desc"
+                type="text"
+                placeholder="description (optional)"
+                value={desc}
+                onChange={(e) => setDesc(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          {/* end session details */}
+          <div className="w-full h-[2px] bg-brand/10 my-8"></div>
+
+          <Button label="Submit" type="submit" />
         </section>
       </form>
     </div>

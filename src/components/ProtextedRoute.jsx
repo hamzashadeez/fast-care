@@ -21,12 +21,11 @@ function ProtectedRoutes({ children }) {
       auth,
       async (authenticatedUser) => {
         if (authenticatedUser) {
-          console.log(authenticatedUser?.email)
+          
           const unsub = onSnapshot(
             doc(db, "users", authenticatedUser?.email),
             (doc) => {
               setLoading(false);
-              console.log(doc.data());
               setUser(doc.data());
               setUserData(doc.data());
             }
