@@ -10,6 +10,7 @@ import Bookings from "./pages/Bookings";
 import ProtectedRoutes from "./components/ProtextedRoute";
 import ChatWrapper from "./components/ChatWrapper";
 import ProfileScreen from "./pages/Profile";
+import NewAppointment from "./pages/NewAppointment";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/members" element={<ProtectedRoutes><Members /></ProtectedRoutes>}></Route>
           <Route path="/chats" element={<ChatWrapper><Chats /></ChatWrapper>}></Route>
           <Route path="/bookings" element={<ProtectedRoutes><Bookings /></ProtectedRoutes>}></Route>
+          <Route path="/new-appointment" element={<NewAppointment />}></Route>
         </Routes>
       </BrowserRouter>
     </>
