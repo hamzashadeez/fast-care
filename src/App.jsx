@@ -11,9 +11,11 @@ import ProtectedRoutes from "./components/ProtextedRoute";
 import ChatWrapper from "./components/ChatWrapper";
 import ProfileScreen from "./pages/Profile";
 import NewAppointment from "./pages/NewAppointment";
+import UpdateProfileDoc from "./pages/UpdateProfileDoc";
+import UpdateProfile from "./pages/UpdateProfile";
+import EmptyRouteProtector from "./components/EmptyRouteProtector";
 
 function App() {
-
   return (
     <>
       <BrowserRouter>
@@ -21,12 +23,70 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>}></Route>
-          <Route path="/profile" element={<ProtectedRoutes><ProfileScreen /></ProtectedRoutes>}></Route>
-          <Route path="/members" element={<ProtectedRoutes><Members /></ProtectedRoutes>}></Route>
-          <Route path="/chats" element={<ChatWrapper><Chats /></ChatWrapper>}></Route>
-          <Route path="/bookings" element={<ProtectedRoutes><Bookings /></ProtectedRoutes>}></Route>
-          <Route path="/new-appointment" element={<NewAppointment />}></Route>
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoutes>
+                <Dashboard />
+              </ProtectedRoutes>
+            }
+          ></Route>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoutes>
+                <ProfileScreen />
+              </ProtectedRoutes>
+            }
+          ></Route>
+          <Route
+            path="/members"
+            element={
+              <ProtectedRoutes>
+                <Members />
+              </ProtectedRoutes>
+            }
+          ></Route>
+          <Route
+            path="/chats"
+            element={
+              <ChatWrapper>
+                <Chats />
+              </ChatWrapper>
+            }
+          ></Route>
+          <Route
+            path="/bookings"
+            element={
+              <ProtectedRoutes>
+                <Bookings />
+              </ProtectedRoutes>
+            }
+          ></Route>
+          <Route
+            path="/update-profile-doctor"
+            element={
+              <EmptyRouteProtector>
+                <UpdateProfileDoc />
+              </EmptyRouteProtector>
+            }
+          ></Route>
+          <Route
+            path="/update-profile"
+            element={
+              <EmptyRouteProtector>
+                <UpdateProfile />
+              </EmptyRouteProtector>
+            }
+          ></Route>
+          <Route
+            path="/new-appointment"
+            element={
+              <EmptyRouteProtector>
+                <NewAppointment />
+              </EmptyRouteProtector>
+            }
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>
@@ -34,6 +94,3 @@ function App() {
 }
 
 export default App;
-
-
-
