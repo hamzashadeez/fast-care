@@ -14,6 +14,7 @@ import NewAppointment from "./pages/NewAppointment";
 import UpdateProfileDoc from "./pages/UpdateProfileDoc";
 import UpdateProfile from "./pages/UpdateProfile";
 import EmptyRouteProtector from "./components/EmptyRouteProtector";
+import Appointments from "./pages/Appointments";
 
 function App() {
   return (
@@ -60,6 +61,14 @@ function App() {
             element={
               <ProtectedRoutes>
                 <Bookings />
+              </ProtectedRoutes>
+            }
+          ></Route>
+          <Route
+            path="/appointments"
+            element={
+              <ProtectedRoutes>
+                <Appointments />
               </ProtectedRoutes>
             }
           ></Route>

@@ -38,11 +38,11 @@ const Doctor = ({ data, selected, setSelected }) => {
           Dr {data?.fullName}
         </p>
         <p className="font-semibold text-sm text-center mt-2 capitalize italic text-green-400">
-          {data?.userType}
+          {data?.speciality}
         </p>
         <div className="w-full h-[2px] bg-brand/10 mt-2"></div>
       </div>
-      <p className="font-semibold text-lg mt-2">₦5k/session</p>
+      <p className="font-semibold text-lg mt-2">₦{data?.rate}k/session</p>
       <div className="font-semibold border bg-brand/20 text-brand py-1 text-sm text-center mt-2">
         Available
       </div>

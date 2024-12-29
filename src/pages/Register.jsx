@@ -32,8 +32,8 @@ const Register = () => {
           password,
           speciality: null,
           bio: "hello",
-          profilePic: "",
-          rating: 0,
+          profilePic: null,
+          rate: 0,
         });
 
         setUser({ userType, fullName, email, password });

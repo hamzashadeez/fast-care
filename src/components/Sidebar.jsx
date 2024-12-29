@@ -5,8 +5,13 @@ import { IoMdChatboxes } from "react-icons/io";
 import { IoTime } from "react-icons/io5";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import { useRecoilState } from "recoil";
+import userData from "../lib/userData";
 
 const Sidebar = () => {
+  const [user, setUser] = useRecoilState(userData);
+
+
   return (
     <div>
       <img src="/logo.svg" alt="" className="w-3/4 mt-4" />
@@ -18,20 +23,27 @@ const Sidebar = () => {
           <MdDashboard size={30} color="gray" />
           <h3 className="text-xl hidden md:flex font-semibold">Dashboard</h3>
         </Link>
-        <Link
+       {user?.userType === "patient" && <Link
           to={"/bookings"}
           className="flex gap-4 items-center hover:text-brand hover:font-bold "
         >
           <IoTime size={30} color="gray" />
           <h3 className="text-xl hidden md:flex font-semibold">Bookings</h3>
-        </Link>
-        <Link
+        </Link>}
+       {user?.userType === "doctor" && <Link
+          to={"/appointments"}
+          className="flex gap-4 items-center hover:text-brand hover:font-bold "
+        >
+          <IoTime size={30} color="gray" />
+          <h3 className="text-xl hidden md:flex font-semibold">Appointments</h3>
+        </Link>}
+        {/* <Link
           to={"/members"}
           className="flex gap-4 items-center hover:text-brand hover:font-bold "
         >
           <MdFamilyRestroom size={30} color="gray" />
           <h3 className="text-xl hidden md:flex font-semibold">My Family</h3>
-        </Link>
+        </Link> */}
         <Link
           to={"/chats"}
           className="flex gap-4 items-center hover:text-brand hover:font-bold "
