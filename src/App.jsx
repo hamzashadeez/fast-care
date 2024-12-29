@@ -51,9 +51,9 @@ function App() {
           <Route
             path="/chats"
             element={
-              <ChatWrapper>
+              <ProtectedRoutes>
                 <Chats />
-              </ChatWrapper>
+              </ProtectedRoutes>
             }
           ></Route>
           <Route

@@ -7,9 +7,12 @@ import userData from "../lib/userData";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { useRecoilState } from "recoil";
 import { GrSchedules } from "react-icons/gr";
+import Calendar from "react-calendar";
+import { useState } from "react";
 
 const Dashboard = () => {
   const [user, setUser] = useRecoilState(userData);
+  const [value, onChange] = useState(new Date());
 
   return (
     <div className="">
@@ -83,6 +86,16 @@ const Dashboard = () => {
             </div>
           </section>
         )}
+
+        <main className="grid grid-cols-1 mt-5  lg:grid-cols-3 gap-3 md:gap-5">
+          <div className="shadow-md border border-teal-700 overflow-hidden rounded-md">
+            <img src="/tips.png" className="w-full" alt="" />
+          </div>
+          <div className="bg-white shadow-md p-3  rounded-md py-12 border border-brand">
+          <Calendar onChange={onChange} value={value} />
+
+          </div>
+        </main>
       </div>
     </div>
   );
