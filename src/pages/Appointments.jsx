@@ -15,9 +15,12 @@ import { useRecoilState } from "recoil";
 import userData from "../lib/userData";
 import TimeAgo from "../components/TimeAgo";
 import LoadingComponent from "../components/LoadingComponent";
+import CustomModal from "../components/CustomModal";
+import Button from "../components/Button";
 
 const Appointments = () => {
   const [bookings, setBookings] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [user, _] = useRecoilState(userData);
@@ -28,7 +31,7 @@ const Appointments = () => {
     await updateDoc(bookingRef, { status: "approved" })
       .then(() => {
         setLoading(false);
-        alert("Approved");
+        setIsModalOpen(true);
       })
       .catch((error) => {
         alert(error.message);
@@ -76,7 +79,10 @@ const Appointments = () => {
       {loading && <LoadingComponent />}
       <div className="p-4 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-3">
         {bookings.map((booking, index) => (
-          <div key={index} className="flex flex-row gap-4 bg-white shadow-md p-4">
+          <div
+            key={index}
+            className="flex flex-row gap-4 bg-white shadow-md p-4"
+          >
             <img
               className="w-[70px] h-[70px] rounded-full"
               alt="patient"
@@ -127,6 +133,13 @@ const Appointments = () => {
           </div>
         ))}
       </div>
+        <CustomModal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}}>
+          <div className="w-[300px] h-[300px] bg-brand/5 p-4 flex flex-col items-center justify-center relative">
+            <img src="/logo1.svg" alt="" className="mx-auto mb-3" />
+            <h1 className="text-2xl text-brand font-semibold text-center mb-3">Appointment Approved Successfully</h1>
+            <Button label="Close" onClick={() => setIsModalOpen(false)} />
+          </div>
+        </CustomModal>
     </div>
   );
 };
