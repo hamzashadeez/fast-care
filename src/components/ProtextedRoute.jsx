@@ -42,7 +42,7 @@ function ProtectedRoutes({ children }) {
 
   return (
     <div className="bg-brand/5 min-h-screen flex flex-row">
-      <div className="w-1/6 p-4 shadow-sm bg-white">
+      <div className="w-[100px] lg:w-1/6 p-4 shadow-sm bg-white">
         <Sidebar />
       </div>
       <div className="w-5/6">{children}</div>

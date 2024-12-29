@@ -1,6 +1,11 @@
+import DashboardHeader from "../components/DashboardHeader"
+
 const Appointments = () => {    
     return (
-        <div>Appointments</div>
+        <div>
+            <DashboardHeader label="Appointments" />
+            
+            Appointments</div>
     )
 }
 

@@ -35,7 +35,7 @@ const Dashboard = () => {
 
         {/* section doctor */}
         {user?.userType === "doctor" && (
-          <section className="grid grid-cols-1 mt-5  md:grid-cols-3 gap-3 md:gap-5 ">
+          <section className="grid grid-cols-1 mt-5  md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 ">
 
             <div className="bg-white border border-blue-600 p-6 gap-3 rounded-md shadow-md w-full flex items-center justify-start">
               <div className="h-12 w-12 text-blue-600 rounded-full bg-blue-600/10 flex items-center justify-center">
@@ -67,6 +67,17 @@ const Dashboard = () => {
                 <p className="text-gray-600 font-semibold">Amount Paid</p>
                 <h1 className="font-semibold text-2xl md:text-4xl text-brand">
                   ₦50,000
+                </h1>
+              </div>
+            </div>
+            <div className="bg-white border border-blue-600 p-6 gap-3 rounded-md shadow-md w-full flex items-center justify-start">
+              <div className="h-12 w-12 text-blue-600 rounded-full bg-blue-600/10 flex items-center justify-center">
+                <GrSchedules size={25} />
+              </div>
+              <div>
+                <p className="text-gray-600 font-semibold">Approved Appointments</p>
+                <h1 className="font-semibold text-2xl md:text-4xl text-blue-600">
+                  05
                 </h1>
               </div>
             </div>
