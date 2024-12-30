@@ -56,7 +56,7 @@ const Sidebar = () => {
           <h3 className="text-xl hidden lg:flex font-semibold">My Family</h3>
         </Link> */}
         <Link
-          to={"/chats"}
+          to={`${user?.userType === "doctor" ? "/chats" : "/chats-patient"}`}
           className="flex gap-4 items-center hover:text-brand hover:font-bold "
         >
           <IoMdChatboxes size={30} />

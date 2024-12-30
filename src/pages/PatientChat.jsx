@@ -13,7 +13,7 @@ import { useRecoilState } from "recoil";
 import userData from "../lib/userData";
 import { Link } from "react-router-dom";
 
-const Chats = () => {
+const PatientChats = () => {
   const [chats, setChats] = useState([]);
   const [user, _] = useRecoilState(userData);
 
@@ -25,14 +25,14 @@ const Chats = () => {
     const unsubscribe = onSnapshot(qr, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
         if (
-          doc.data().doctorId === user?.email &&
+          doc.data().id === user?.email &&
           doc.data().status === "approved"
         ) {
           // doctor
 
           bookingsList.push({
             docId: doc.id,
-            chats: doc.data().patient,
+            chats: doc.data().doctor,
             ...doc.data(),
           });
           console.log(bookingsList);
@@ -90,4 +90,4 @@ const Chats = () => {
   );
 };
 
-export default Chats;
+export default PatientChats;

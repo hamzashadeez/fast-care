@@ -15,6 +15,7 @@ import UpdateProfile from "./pages/UpdateProfile";
 import EmptyRouteProtector from "./components/EmptyRouteProtector";
 import Appointments from "./pages/Appointments";
 import ChatRoom from "./pages/ChatRoom";
+import PatientChats from "./pages/PatientChat";
 
 function App() {
   return (
@@ -53,6 +54,14 @@ function App() {
             element={
               <ProtectedRoutes>
                 <Chats />
+              </ProtectedRoutes>
+            }
+          ></Route>
+          <Route
+            path="/chats-patient"
+            element={
+              <ProtectedRoutes>
+                <PatientChats />
               </ProtectedRoutes>
             }
           ></Route>
