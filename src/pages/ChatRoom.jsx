@@ -2,11 +2,12 @@ import {
   addDoc,
   collection,
   onSnapshot,
+  orderBy,
   query,
   Timestamp,
   where,
 } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../firebase";
 import Button from "../components/Button";
@@ -48,9 +49,11 @@ const ChatRoom = () => {
   const [chats, setChats] = useState([]);
   const { id } = useParams();
   const [user, _] = useRecoilState(userData);
+  const myDivRef = useRef(null);
+
 
   const getRoomData = async () => {
-    const q = query(collection(db, "bookings", String(id), "chats"));
+    const q = query(collection(db, "bookings", String(id), "chats"), orderBy("time", "asc"));
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const list = [];
@@ -58,6 +61,7 @@ const ChatRoom = () => {
         console.log(doc.data());
         list.push(doc.data());
       });
+      myDivRef.current.scrollTo(50, 0)
       setChats(list);
     });
   };
@@ -73,6 +77,7 @@ const ChatRoom = () => {
       message,
       time: Timestamp.now(),
     }).then(() => {
+      myDivRef.current.scrollTo(50, 0)
       setMessage("");
     });
   };
@@ -81,7 +86,7 @@ const ChatRoom = () => {
       <div className="bg-white flex items-center justify-between  p-3 md:p-6 rounded-md shadow-md w-full md:w-1/2 mb-3">
         <Link
           className="bg-brand/5 text-brand text-sm px-3 py-2 rounded"
-          to="/chats"
+          to={`${user?.userType === "patient" ? "/chats-patient" : "/chats"}`}
         >
           Go Back
         </Link>
@@ -90,14 +95,15 @@ const ChatRoom = () => {
       </div>
 
       <div
+        ref={myDivRef}
         className="
-        bg-white mt-3 shadow-md  w-full md:w-1/2 mb-3  md:h-[77vh] relative
+        bg-white mt-3 shadow-md  w-full md:w-1/2 mb-1 overflow-y-auto h-[75vh]  lg:h-[70vh] 
       "
       >
         <div
           className="
           p-3 md:p-6
-          flex flex-col gap-5
+          flex flex-col gap-5 h-[90%] relative
         "
         >
           {chats.map((item, index) => (
@@ -111,23 +117,24 @@ const ChatRoom = () => {
         </div>
         <img
           src="/logo1.svg"
-          className="absolute top-[50%] left-[50%] opacity-10 w-1/3 translate-x-[-50%] translate-y-[-50%]"
+          className="absolute top-[50%] left-[50%] opacity-10 w-1/5 translate-x-[-50%] translate-y-[-50%]"
           alt=""
         />
-        <form
-          onSubmit={(e) => submitMessage(e)}
-          className="flex items-center gap-3 absolute px-3 md:px-6 bottom-3 flex-2 w-[100%] "
-        >
-          <input
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
-            className="w-full h-[45px] rounded-md mt-1 border border-brand/20 px-2 outline-green-500  ring-1 ring-brand/20 focus:outline-brand"
-            placeholder="Enter Message"
-          />
-          <Button label="Send" />
-        </form>
       </div>
+          <form
+            onSubmit={(e) => submitMessage(e)}
+            className="flex items-center gap-3 bg-white px-3 md:px-6 w-full py-2 w-full md:w-1/2 "
+          >
+            <input
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+              className="w-full h-[45px] rounded-md mt-2 border border-brand/20 px-2 outline-green-500  ring-1 ring-brand/20 focus:outline-brand"
+              placeholder="Enter Message"
+            />
+            <Button label="Send" />
+          </form>
+
     </div>
   );
 };

@@ -135,42 +135,9 @@ const UpdateProfile = () => {
                 required
               />
             </div>
-            <div className="flex flex-col">
-              <label
-                htmlFor="Speciality"
-                className="text-md text-gray-500 font-semibold mb-1"
-              >
-                Enter Speciality
-              </label>
-              <select
-                name="speciality"
-                id="speciality"
-                onChange={(e) => setSpeciality(e.target.value)}
-                defaultValue={speciality}
-                className="h-[40px] w-full  rounded-md border border-brand/20 px-2 outline-green-500  ring-1 ring-brand/20 focus:outline-brand"
-              >
-                <option value={speciality}>{speciality}</option>
-                <option value="Neurologists">Neurologists</option>
-                <option value="Podiatrists">Podiatrists</option>
-              </select>
-            </div>
+           
 
-            <div>
-              <label
-                htmlFor="bio"
-                className="text-md text-gray-500 font-semibold mb-1"
-              >
-                Enter Your Hourly Rate (₦)
-              </label>
-              <Input
-                id="rate"
-                type="text"
-                placeholder="Enter Rate ₦"
-                value={rate}
-                onChange={(e) => setRate(e.target.value)}
-                required
-              />
-            </div>
+           
             {/* profile pic */}
           </div>
 

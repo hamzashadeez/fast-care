@@ -20,7 +20,7 @@ const Sidebar = () => {
         alt=""
         className="w-[50px] mx-auto lg:hidden mt-4"
       />
-      <div className="mt-4 flex flex-col gap-8  pt-4 md:pt-16 md:px-5">
+      <div className="mt-4 flex flex-col items-center md:items-start gap-8  pt-4 md:pt-16 md:px-5">
         <Link
           to={"/dashboard"}
           className="flex gap-4 items-center hover:text-brand hover:font-bold "
@@ -48,13 +48,6 @@ const Sidebar = () => {
             </h3>
           </Link>
         )}
-        {/* <Link
-          to={"/members"}
-          className="flex gap-4 items-center hover:text-brand hover:font-bold "
-        >
-          <MdFamilyRestroom size={30}  />
-          <h3 className="text-xl hidden lg:flex font-semibold">My Family</h3>
-        </Link> */}
         <Link
           to={`${user?.userType === "doctor" ? "/chats" : "/chats-patient"}`}
           className="flex gap-4 items-center hover:text-brand hover:font-bold "

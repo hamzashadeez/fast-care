@@ -34,8 +34,9 @@ const ProfileScreen = () => {
       <Button label="Update Profile" />
     </Link>
 
-    <div className="bg-red-500 w-full md:w-1/2 mt-4">
+    <div className=" w-full md:w-1/2 mt-4">
     {user?.userType === "doctor" ? <ProfileDetailsDoc /> : <ProfileDetails />}
+
 
     </div>
     

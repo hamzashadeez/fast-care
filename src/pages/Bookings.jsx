@@ -57,9 +57,11 @@ const Bookings = () => {
                   <span className="font-normal text-black">Speciality:</span>{" "}
                   Cardiologist
                 </p>
-                <p className="font-bold text-red-500 text-sm md:text-lg capitalize">
-                  <span className="font-normal text-black ">Status:</span>{" "}
-                  {booking?.status}
+                <p className=" text-sm md:text-lg capitalize">
+                Status:
+                  <span className={`font-bold ${booking?.status === "approved"? "text-brand": "text-black"} `}>
+                  {" "}{booking?.status}</span>
+                  
                 </p>
               </div>
             </main>
