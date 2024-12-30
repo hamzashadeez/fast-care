@@ -11,6 +11,7 @@ import {
 import { db } from "../firebase";
 import { useRecoilState } from "recoil";
 import userData from "../lib/userData";
+import { Link } from "react-router-dom";
 
 const Chats = () => {
   const [chats, setChats] = useState([]);
@@ -51,13 +52,24 @@ const Chats = () => {
       {chats.map((chat, index) => (
         <div
           key={index}
-          className="bg-white p-3 md:p-6 rounded-md shadow-md w-full md:w-1/2 mb-3"
+          className="bg-white flex gap-4  p-3 md:p-6 rounded-md shadow-md w-full md:w-1/2 mb-3"
         >
           <img
             src={chat?.profilePic ? chat?.profilePic : "/man.jpg"}
             alt=""
             className="w-[50px] h-[50px] rounded-full border-2 border-brand "
           />
+          <div className="flex-1">
+            <h1 className="font-semibold text-brand">{chat?.data?.fullName}</h1>
+            <h1 className="font-semibold text-gray-500 uppercase italic">
+              {chat?.data?.userType}
+            </h1>
+          </div>
+          <div className="mt-3 flex items-center justify-center ">
+            <Link to={`/chat/${chat?.docId}`} className="bg-brand py-2 px-2.5 text-white rounded">
+              View Chat
+            </Link>
+          </div>
         </div>
       ))}
     </div>

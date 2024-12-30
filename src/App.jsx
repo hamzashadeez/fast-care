@@ -8,13 +8,13 @@ import Members from "./pages/Members";
 import Chats from "./pages/Chats";
 import Bookings from "./pages/Bookings";
 import ProtectedRoutes from "./components/ProtextedRoute";
-import ChatWrapper from "./components/ChatWrapper";
 import ProfileScreen from "./pages/Profile";
 import NewAppointment from "./pages/NewAppointment";
 import UpdateProfileDoc from "./pages/UpdateProfileDoc";
 import UpdateProfile from "./pages/UpdateProfile";
 import EmptyRouteProtector from "./components/EmptyRouteProtector";
 import Appointments from "./pages/Appointments";
+import ChatRoom from "./pages/ChatRoom";
 
 function App() {
   return (
@@ -93,6 +93,14 @@ function App() {
             element={
               <EmptyRouteProtector>
                 <NewAppointment />
+              </EmptyRouteProtector>
+            }
+          ></Route>
+          <Route
+            path="/chat/:id"
+            element={
+              <EmptyRouteProtector>
+                <ChatRoom />
               </EmptyRouteProtector>
             }
           ></Route>
