@@ -49,7 +49,7 @@ const Chats = () => {
 
   return (
     <div className="min-h-screen pt-12 px-6 md:px-16 flex flex-col items-center  ">
-      <div className="bg-white p-3 md:p-6 rounded-md shadow-md w-full md:w-1/2 mb-3">
+      <div className="bg-white p-3 md:p-6 rounded-md shadow-md w-full lg:w-1/2 mb-3">
         <h1 className="text-center font-semibold text-2xl text-brand">
           My Chats
         </h1>
@@ -58,7 +58,7 @@ const Chats = () => {
       {chats.map((chat, index) => (
         <div
           key={index}
-          className="bg-white flex gap-5  p-3 md:p-6 rounded-md shadow-md w-full md:w-1/2 mb-3"
+          className="bg-white flex gap-5  p-3 md:p-6 rounded-md shadow-md w-full lg:w-1/2 mb-3"
         >
           <img
             src={chat?.chats?.profilePic ? chat?.chats?.profilePic : "/man.jpg"}

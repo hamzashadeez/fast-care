@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "agora-react-uikit": "^1.2.0",
+    "agora-rn-uikit": "^5.0.2",
     "firebase": "^11.1.0",
     "moment": "^2.30.1",
     "react": "^18.3.1",

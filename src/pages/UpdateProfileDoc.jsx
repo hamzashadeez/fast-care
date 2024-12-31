@@ -152,6 +152,10 @@ const UpdateProfileDoctor = () => {
                 <option value={speciality}>{speciality}</option>
                 <option value="Neurologists">Neurologists</option>
                 <option value="Podiatrists">Podiatrists</option>
+                <option value="Dentist">Dentist</option>
+                <option value="Therapist">Therapist</option>
+                <option value="Pharmacist">Pharmacist</option>
+                <option value="Dietician">Dietician</option>
               </select>
             </div>
 

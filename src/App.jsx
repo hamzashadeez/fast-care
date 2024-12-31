@@ -89,6 +89,7 @@ function App() {
               </EmptyRouteProtector>
             }
           ></Route>
+          
           <Route
             path="/update-profile"
             element={

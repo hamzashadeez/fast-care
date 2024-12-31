@@ -106,7 +106,7 @@ const NewAppointment = () => {
     
     const dataRef = doc(db, "bookings", String(id));
     setDoc(dataRef, data, { merge: true }).then(() => {
-        alert("Successpully made an appointment");
+        alert("Successfully Made an Appointment");
         setLoading(false);
         navigate("/bookings");
     }).catch((error) => {
@@ -122,20 +122,20 @@ const NewAppointment = () => {
         className="w-full md:w-1/2 mx-auto pt-12"
       >
         <Link
-          className="text-brand bg-brand/10 px-4 py-2 rounded-md "
+          className="text-brand bg-brand/10 px-4 py-2 rounded-md mx-5 "
           to={"/bookings"}
         >
           Go Back
         </Link>
 
-        <h1 className="text-2xl md:text-3xl font-semibold text-brand my-4">
+        <h1 className="text-2xl md:text-3xl font-semibold text-brand my-4 px-5">
           New Appointment
         </h1>
         <section>
-          <p className="text-sm text-gray-500 font-semibold mb-1">
+          <p className="text-sm text-gray-500 font-semibold mb-1 px-5">
             Select Doctor
           </p>
-          <main className="flex items-center gap-4 flex-wrap">
+          <main className="flex items-center gap-4 flex-wrap px-5">
             {doctors.map((doc, index) => (
               <Doctor
                 data={doc}
@@ -147,7 +147,7 @@ const NewAppointment = () => {
           </main>
 
           {/* session details */}
-          <div className="flex flex-col mt-8 gap-4">
+          <div className="flex flex-col mt-8 gap-4 px-4">
             <div>
               <label
                 htmlFor="name"
@@ -184,8 +184,10 @@ const NewAppointment = () => {
 
           {/* end session details */}
           <div className="w-full h-[2px] bg-brand/10 my-8"></div>
+            <div className="px-5">
 
-          <Button label="Submit" type="submit" />
+            <Button label="Submit" type="submit" />
+            </div>
         </section>
       </form>
     </div>

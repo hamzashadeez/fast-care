@@ -12,18 +12,18 @@ const ProfileScreen = () => {
   return (
     <div className="min-h-screen pt-12 px-6 md:px-16 flex flex-col items-center  ">
       <div className="bg-white p-3 md:p-6 rounded-md shadow-md w-full md:w-1/2 mb-3">
-        <h1 className="text-center font-semibold text-2xl text-brand">
+        <h1 className="text-center font-semibold mb-4 text-2xl text-brand">
           Profile
         </h1>
-        <div className="flex gap-3 mt-3">
+        <div className="flex gap-5 mt-3">
           <img
             src={user?.profilePic ? user?.profilePic : "/man.jpg"}
             alt=""
-            className="w-[50px] h-[50px] rounded-full border-2 border-brand "
+            className="w-[100px] h-[100px] rounded-full border-2 border-brand "
           />
-          <div className="">
-            <h1 className="font-semibold ">{user?.fullName}</h1>
-            <p className="font-semibold text-sm text-brand  uppercase">
+          <div className="mt-4">
+            <h1 className="font-semibold text-2xl">{user?.fullName}</h1>
+            <p className="font-semibold text-lg text-brand  uppercase">
               {user?.speciality? user?.speciality : user?.userType}
             </p>
           </div>
