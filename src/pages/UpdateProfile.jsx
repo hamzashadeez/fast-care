@@ -82,7 +82,6 @@ const UpdateProfile = () => {
       });
   };
 
-
   return (
     <div className="w-full min-h-screen bg-brand/5 py-12">
       {loading && <LoadingComponent />}
@@ -135,9 +134,7 @@ const UpdateProfile = () => {
                 required
               />
             </div>
-           
 
-           
             {/* profile pic */}
           </div>
 
@@ -148,7 +145,10 @@ const UpdateProfile = () => {
         </section>
       </form>
 
-      <form onSubmit={(e) => updateProfilePic(e)} className="w-full md:w-1/2 mx-auto mt-16 py-6 shadow-md px-4 bg-white rounded-md">
+      <form
+        onSubmit={(e) => updateProfilePic(e)}
+        className="w-full md:w-1/2 mx-auto mt-16 py-6 shadow-md px-4 bg-white rounded-md"
+      >
         <h1 className="text-2xl md:text-3xl font-semibold text-brand my-3 ">
           Update Profile Photo
         </h1>

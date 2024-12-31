@@ -8,11 +8,62 @@ import { TbCurrencyNaira } from "react-icons/tb";
 import { useRecoilState } from "recoil";
 import { GrSchedules } from "react-icons/gr";
 import Calendar from "react-calendar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Dashboard = () => {
   const [user, setUser] = useRecoilState(userData);
   const [value, onChange] = useState(new Date());
+
+  const [users, setUsers] = useState([]);
+  const [bookings, setBookings] = useState([]);
+  const [rejected, setRejected] = useState([]);
+
+  const getApprovedBookings = async () => {
+    const q = query(collection(db, "bookings"), where("status", "==", "approved"));
+    onSnapshot(q, (querySnapshot) => {
+      const bookings = [];
+      querySnapshot.forEach((doc) => {
+        bookings.push(doc.data());
+      });
+      setBookings(bookings);
+    });
+  };
+
+  useEffect(() => {
+    getApprovedBookings();
+  }, []);
+
+
+
+
+  const getUsers = async () => {
+    const q = query(collection(db, "users"), where("userType", "==", "patient"));
+    onSnapshot(q, (querySnapshot) => {
+      const users = [];
+      querySnapshot.forEach((doc) => {
+        users.push(doc.data());
+      });
+      console.log(users);
+      setUsers(users);
+    });
+  };
+
+  useEffect(() => {
+    getUsers();
+  },[])
+
+  const getRejectedBookings = async () => {
+    const q = query(collection(db, "bookings"), where("status", "==", "declined"));
+    onSnapshot(q, (querySnapshot) => {
+      const bookings = [];
+      querySnapshot.forEach((doc) => {
+        bookings.push(doc.data());
+      });
+      setRejected(bookings);
+    });
+  };
 
   return (
     <div className="">
@@ -47,7 +98,7 @@ const Dashboard = () => {
               <div>
                 <p className="text-gray-600 font-semibold">Approved Appointments</p>
                 <h1 className="font-semibold text-2xl md:text-4xl text-blue-600">
-                  05
+                  {bookings.length}
                 </h1>
               </div>
             </div>
@@ -58,7 +109,7 @@ const Dashboard = () => {
               <div>
                 <p className="text-gray-600 font-semibold">Rejected Appointments</p>
                 <h1 className="font-semibold text-2xl md:text-4xl text-orange-600">
-                  0
+                  {rejected.length}
                 </h1>
               </div>
             </div>
@@ -69,7 +120,7 @@ const Dashboard = () => {
               <div>
                 <p className="text-gray-600 font-semibold">Amount Paid</p>
                 <h1 className="font-semibold text-2xl md:text-4xl text-brand">
-                  ₦50,000
+                  ₦0.00
                 </h1>
               </div>
             </div>
@@ -78,9 +129,9 @@ const Dashboard = () => {
                 <GrSchedules size={25} />
               </div>
               <div>
-                <p className="text-gray-600 font-semibold">Approved Appointments</p>
+                <p className="text-gray-600 font-semibold">Total Patients</p>
                 <h1 className="font-semibold text-2xl md:text-4xl text-blue-600">
-                  05
+                  {users.length}
                 </h1>
               </div>
             </div>
